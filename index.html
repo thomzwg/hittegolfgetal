@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hittegolven per station</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page-shell">
+    <section class="hero">
+      <p class="eyebrow">KNMI stationsdata</p>
+      <h1>Hittegolven van minimaal vijf dagen</h1>
+      <p class="intro">
+        Selecteer een station en bekijk alle periodes waarin de maximumtemperatuur minstens vijf dagen achter elkaar 25 graden of hoger was.
+      </p>
+    </section>
+
+    <section class="panel controls-panel">
+      <label class="field-label" for="station-select">Station</label>
+      <div class="controls-row">
+        <select id="station-select" aria-label="Kies een station"></select>
+        <div class="summary-card" id="station-summary" aria-live="polite"></div>
+      </div>
+      <div class="filters-row">
+        <div class="mode-buttons" role="group" aria-label="Weergave">
+          <button type="button" id="periods-button" class="mode-button active">Periodes</button>
+          <button type="button" id="current-button" class="mode-button">huidig</button>
+        </div>
+        <label for="month-filter">Begindatum maand</label>
+        <select id="month-filter" aria-label="Filter op begindatum maand">
+          <option value="all">Alle maanden</option>
+          <option value="1">Januari</option>
+          <option value="2">Februari</option>
+          <option value="3">Maart</option>
+          <option value="4">April</option>
+          <option value="5">Mei</option>
+          <option value="6">Juni</option>
+          <option value="7">Juli</option>
+          <option value="8">Augustus</option>
+          <option value="9">September</option>
+          <option value="10">Oktober</option>
+          <option value="11">November</option>
+          <option value="12">December</option>
+        </select>
+        <label for="year-filter">Begindatum jaar</label>
+        <select id="year-filter" aria-label="Filter op begindatum jaar">
+          <option value="all">Alle jaren</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="panel table-panel">
+      <div class="table-header">
+        <div>
+          <h2>Periodes</h2>
+          <p id="sort-status">Gesorteerd op begindatum.</p>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table id="heatwave-table">
+          <thead>
+            <tr>
+              <th class="col-station" hidden><button type="button" class="sort-button" data-key="stationLabel">Station</button></th>
+              <th><button type="button" class="sort-button" data-key="startDate">Begindatum</button></th>
+              <th><button type="button" class="sort-button" data-key="endDate">Einddatum</button></th>
+              <th><button type="button" class="sort-button" data-key="dayCount">Dagen</button></th>
+              <th><button type="button" class="sort-button" data-key="heatwaveScore">Hittegolfgetal</button></th>
+              <th><button type="button" class="sort-button" data-key="heatwaveScorePerDay">Hittegolfgetal / dag</button></th>
+              <th><button type="button" class="sort-button" data-key="averageTemperature">Gem. temperatuur</button></th>
+              <th><button type="button" class="sort-button" data-key="maxTemperature">Max temperatuur</button></th>
+              <th><button type="button" class="sort-button" data-key="hasThreeThirtyPlusDays">Min. 3 dagen 30+</button></th>
+              <th><button type="button" class="sort-button" data-key="warmestPeriodAvgTemp">Warmste periode</button></th>
+              <th><button type="button" class="sort-button" data-key="warmestPeriodDayCount">Dagen (warmste)</button></th>
+              <th><button type="button" class="sort-button" data-key="warmestPeriodStartDate">Begin (warmste)</button></th>
+              <th><button type="button" class="sort-button" data-key="warmestPeriodEndDate">Eind (warmste)</button></th>
+            </tr>
+          </thead>
+          <tbody id="heatwave-body"></tbody>
+        </table>
+      </div>
+
+      <p class="empty-state" id="empty-state" hidden>Voor dit station zijn geen periodes van minimaal vijf dagen gevonden.</p>
+    </section>
+  </main>
+
+  <script src="heatwaves-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
